@@ -1,5 +1,5 @@
 // Interface
-// Case num-1: Error
+/* Case num-1: Error
 interface IIdName {
     id: number;
     name: string;
@@ -207,3 +207,229 @@ namespace FirsNameSpace {
 
 let nameSpaceClass = new FirstNameSpace.NameSpaceClass();
 let NotExported = new FirsNameSpace.NotExported();
+
+// Inheritance 
+class IdNameClass implements IDerivedFromBase {
+    id: number = 0;
+    name: string = "nameString";
+}
+
+interface IBaseStringOrNumber {
+    id: string | number;
+}
+/*
+interface IDerivedFromBaseNumber {
+    extends IBaseStringOrNumber {
+        id: number;
+    }
+}
+
+interface IMultiple extends IDerivedFromBase, IDerivedFromBase {
+    description: string;
+}
+
+let multipleObject: IMultiple = {
+    id: 1,
+    name: "myName",
+    description: "myDescription"
+}
+
+
+interface IBase {
+    id: number;
+}
+
+interface IDerivedFromBase extends IBase {
+    name: string;
+}
+
+class BaseClass implements IBase {
+    id: number = 0;
+}
+
+class DerivedFromBaseClass extends BaseClass implements IDerivedFromBase {
+    name: string = "nameString";
+}
+
+interface IFirstInterface {
+    id: number;
+}
+
+interface ISecondInterface {
+    name: string;
+}
+
+class MultipleInterfaces implements IFirstInterface, ISecondInterface {
+    id: number = 0;
+    name: string = "namestring";
+}
+
+// Inheritance - super function
+class BaseClassWithCtor {
+    private id: number;
+    constructor(id: number) {
+        this.id = id;
+    }
+}
+
+class DerivedClassWithCtor extends BaseClassWithCtor {
+    private name: string;
+    constructor(id: number, name: string) {
+        super(id);
+        this.name = name;
+    }
+}
+
+// Inheritance - overriding
+class BaseClassWithFn {
+    print(text: string) {
+        console.log(`BaseClassWithFn.print() : ${text}`);
+    }
+}
+
+class DerivedClassFnOverride extends BaseClassWithFn {
+    print(text: string) {
+        console.log(`DerivedClassFnOverride.print(${text})`)
+    }
+}
+
+let derivedClassFnOverride = new DerivedClassFnOverride();
+derivedClassFnOverride.print("test");
+
+// Inheritance - protected
+class BaseClassProtected {
+    protected id: number;
+    private name: string = "";
+    constructor(id: number) {
+        this.id = id;
+    }
+}
+
+class AccessProtected extends BaseClassProtected {
+    constructor(id: number) {
+        super(id);
+        console.log(`base.id = ${this.id}`);
+        console.log(`base.name = ${this.name}`);
+    }
+}
+
+let accessProtected = new AccessProtected(1);
+accessProtected.id = 1;
+accessProtected.name = "test";
+
+// Inheritance - abstract
+abstract class EmployeeBase {
+    public id: number;
+    public name: string;
+    constructor(id: number, name: string) {
+        this.id = id;
+        this.name = name;
+    }
+}
+
+class OfficeWorker extends EmployeeBase {
+
+}
+
+class OfficeManager extends OfficeWorker {
+    public employees: OfficeWorker[] = [];
+}
+
+let joeBlogg = new OfficeWorker(1, "Joe");
+let jillBlogg = new OfficeWorker(2, "Jill");
+let jackManager = new OfficeManager(3, "Jack");
+
+
+abstract class EmployeeBase1 {
+    public id: number;
+    public name: string;
+    abstract doWork(): void;
+    constructor(id: number, name: string) {
+        this.id = id;
+        this.name = name;
+    }
+}
+
+class OfficeCoWorker extends EmployeeBase1 {
+    doWork() {
+        console.log(`${this.name} : doing work`);
+    }
+}
+
+class OfficeCoManager extends OfficeCoWorker {
+    public employees: OfficeWorker[] = [];
+    manageEmployees() {
+        super.doWork();
+        for(let employee of this.employees) {
+            employee.doWork
+        }
+    }
+}
+
+jackManager.employees.push(joeBlogg);
+jackManager.employees.push(jillBlogg);
+jackManager.manageEmployees();
+
+// Inheritance - instanceof
+class A {
+  
+}
+
+class BfromA extends A {
+
+}
+
+class CfromA extends A {
+
+}
+
+class DfromA extends CfromA {
+
+}
+
+console.log(`A instance of A: ${new A() instanceof A}`);
+console.log(`BfromA instance of A : ${new BfromA() instanceof A}`);
+console.log(`BfromA instance of BfromA ${new BfromA() instanceof BfromA}`);
+console.log(`CfromA instance of BformA : ${new CfromA() instanceof BfromA}`)
+
+
+// Inheritance - interfaces extending classes
+class BaseInterfaceClass {
+    id: number = 0;
+    print() {
+        console.log(`this.id = ${this.id}`);
+    }
+}
+
+interface IBaseInterfaceClassExt extends BaseInterfaceClass {
+    setId(id: number): void;
+}
+
+class ImplementsExt extends BaseInterfaceClass implements IBaseInterfaceClassExt {
+    setId(id: number): void {
+        this.id = id;
+    }
+}
+*/
+// Modules 
+
+import { Module1 } from "./modules/Module1";
+
+let mod1 = new Module1();
+mod1.print();
+
+// Module - renaming
+import { Module1 as MyMod1 } from "./modules/Module1";
+
+let myRenamedMod = new MyMod1;
+myRenamedMod.print();
+
+// Module - namespaces
+import * as MultipleExports from "./modules/MultipleExports"
+
+let meMc1 = new MultipleExports.MultipleClass1();
+let meMc2 = new MultipleExports.MultipleClass1();
+
+import DefaultAdd from "./modules/DefaultExport";
+
+let modDefault = DefaultAdd(1, 2);
