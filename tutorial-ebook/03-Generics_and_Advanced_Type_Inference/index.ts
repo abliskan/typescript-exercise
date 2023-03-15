@@ -65,7 +65,7 @@ let obj1 = {
 printProperty(obj1, "id");
 printProperty(obj1, "name");
 // printProperty(obj1, "surname");
-*/
+
 
 // Generics - interfaces
 interface IPrint {
@@ -92,31 +92,125 @@ let logClass = new LogClass();
 logClass.logToConsole(printObject);
 
 // Generics - interfaces | mapped types
+interface IAbRequired {
+    a: number;
+    b: string;
+}
+
+let ab: IAbRequired = {
+    a: 1,
+    b: "test"
+}
+
+type WeakInterface<T> = {
+    [K in keyof T]?: T[K];
+}
+
+let allOptional: WeakInterface<IAbRequired> = {}
 
 // Generics - interfaces | partial, readonly, record, and pick
+interface IAbRequired {
+    a: number;
+    b: string;
+}
 
+let ab: IAbRequired = {
+    a: 1,
+    b: "test"
+}
+
+type WeakInterface<T> = {
+    [K in keyof T]?: T[K];
+}
 // Generics - interfaces | conditional types
+function logNumberOrString<T> (input: NumberOrString<T>) {
+    console.log(`logNumberOrString : ${input}`);
+}
 
 // Generics - interfaces | conditional type chaining
+interface IA {
+    a: number;
+}
+
+interface IAb {
+    a: number;
+    b: string;
+}
+
+interface IAbc {
+    a: number;
+    b: string;
+    c: boolean;
+}
+
+type abc_ab_a<T> =
+    T extends IAbc ? [number, string, boolean] :
+    T extends IAb ? [number, string] :
+    T extends IA ? [number] :
+    never;
+
+function getTupleStringAbc<T>
+    (tupleValue: abc_ab_a<T>) : string {
+        let [...tupleDestructured] = tupleValue;
+        let returnString = "i";
+        for (let value of tupleDestructured) {
+            returnString += `${value}|`;
+        }
+        return returnString;
+    }
 
 // Generics - interfaces | distributed conditional types
+type dateOrNumberOrString<T> = 
+    T extends Date ? Date :
+    T extends number ? Date | number :
+    T extends string ? Date | number | string :
+    never;
+
+function compareValues 
+    <T extends string | number | Date | boolean> (
+        input: T,
+        compareTo: dateOrNumberOrString<T>
+    ) {
+        // write code here
+    }
+
+compareValues(new Date(), new Date());
+compareValues(1, 2);
+compareValues(1, 2);
+compareValues("test", new Date());
+compareValues("test", 1);
+compareValues("test", "test");
 
 // Generics - interfaces | conditional type inference
+type testInferFromPropertyType<T> = 
+    T extends { id: infer U} ? U : never;
 
+function testInferFromPropertyType<T> (
+    arg: testInferFromPropertyType<T>
+) {}
+
+testInferFromPropertyType<{ id: string }>("test");
+testInferFromPropertyType<{ id: number }>(1);
+*/
 // Generics - interfaces | type inference from arrays
+type inferTypeFromArray<T> = 
+    T extends (infer U)[] ? U : never;
+
+function testInferFromArray<T> (
+    arg: inferTypeFromArray<T>
+) {}
+
+testInferFromArray<string[]>("test");
+testInferFromArray<number[]>(1);
 
 // Generics - interfaces | standard conditional types
+type ExcludeStringAndNumber = Exclude<
+    string | number | boolean,
+    string | number>;
 
-// Last log (inside): 136
+let boolValue: ExcludeStringAndNumber = true;
 
+type NotNullOrUndef = NonNullable<number | undefined | null>;
+let numValue: NotNullOrUndef = 1;
 
-
-
-
-
-
-
-
-
-
-
+// finish

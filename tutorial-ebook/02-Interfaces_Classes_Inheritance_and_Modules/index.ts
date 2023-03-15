@@ -433,3 +433,5 @@ let meMc2 = new MultipleExports.MultipleClass1();
 import DefaultAdd from "./modules/DefaultExport";
 
 let modDefault = DefaultAdd(1, 2);
+
+// finish
